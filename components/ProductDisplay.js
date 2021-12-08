@@ -26,7 +26,7 @@ app.component('product-display', {
 
             <p>Shipping: {{ shipping }}</p>
             
-            <ProductDetails :details="details"/>
+            <product-detail :details="details"/>
 
             <div 
               v-for="(variant, index) in variants" 
@@ -51,11 +51,21 @@ app.component('product-display', {
 
 
         </div>
-      </div>`,
+      </div>
+      <review-list 
+        :reviews="reviews"
+        v-show="reviews.length"
+        />
+      <review-form @review-submitted="addReview" />
+      
+      
+      
+      `,
       data() {
         return {
           product: 'Socks',
           brand: 'Vue Mastery', 
+          isActive: true,
           selectedVariant: 0,
           details: ['50% cotton', '30% wool', '20% polyester'],
           otherDetails: ['bla', 'bla', 'bla'],
@@ -63,7 +73,7 @@ app.component('product-display', {
             { id: 2234, color: '#4CB982', image: './assets/images/socks_green.jpg' , quantity: 50},
             { id: 2235, color: '#20304A',  image: './assets/images/socks_blue.jpg' , quantity: 0 }
           ],
-          isActive: true
+          reviews: []
         }
       },
       methods: {
@@ -75,6 +85,9 @@ app.component('product-display', {
         },
         updateVariant(index) {
           this.selectedVariant = index
+        },
+        addReview(review) {
+            this.reviews.push(review)
         }
       },
       computed: {

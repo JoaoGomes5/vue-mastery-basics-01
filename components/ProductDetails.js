@@ -1,4 +1,4 @@
-app.component('ProductDetails', {
+app.component('product-detail', {
   props: {
     details: {
       type: Array,
